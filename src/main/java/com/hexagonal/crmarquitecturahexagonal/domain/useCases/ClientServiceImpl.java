@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.hexagonal.crmarquitecturahexagonal.adapters.secondary.ClientRepository;
 import com.hexagonal.crmarquitecturahexagonal.domain.models.Client;
-import com.hexagonal.crmarquitecturahexagonal.puertos.ClientService;
+import com.hexagonal.crmarquitecturahexagonal.ports.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +23,11 @@ public class ClientServiceImpl implements ClientService {
         if (data.size() <= 0){
             clientRepository.initTable();
         }
+    }
+
+    @Override
+    public List<Client> findAllClients() {
+        return clientRepository.findAllClients();
     }
     
 }

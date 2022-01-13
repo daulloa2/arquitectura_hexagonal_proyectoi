@@ -1,5 +1,7 @@
 package com.hexagonal.crmarquitecturahexagonal.adapters.secondary;
 
+import java.util.List;
+
 import com.hexagonal.crmarquitecturahexagonal.config.InitData;
 import com.hexagonal.crmarquitecturahexagonal.domain.models.Client;
 
@@ -12,4 +14,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Modifying
     @Query(nativeQuery = true, value = " " + InitData.clientTable + " ")
     public void initTable();
+
+    @Query(nativeQuery = true, value = "SELECT * FROM client as c")
+    public List<Client> findAllClients();
 }

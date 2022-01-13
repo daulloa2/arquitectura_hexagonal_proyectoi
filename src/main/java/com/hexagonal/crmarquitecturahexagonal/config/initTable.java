@@ -1,6 +1,6 @@
 package com.hexagonal.crmarquitecturahexagonal.config;
 
-import com.hexagonal.crmarquitecturahexagonal.puertos.ClientService;
+import com.hexagonal.crmarquitecturahexagonal.ports.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
