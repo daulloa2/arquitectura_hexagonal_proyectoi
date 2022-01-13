@@ -11,9 +11,9 @@
 * Colas de mesages (Rabbit, Kafka.... etc) - Consumidores
 * APIs Externas
 * Servicios de correo
-### secundarios (Salida)
-* Repositorios (Bas de datos)
-* Colas de mesages (Rabbit, Kafka.... etc) - Publicadores
+### secundarios (salida)
+* Repositorios (Base de datos)
+* Colas de mensages (Rabbit, Kafka.... etc) - Publicadores
 
 ## Puertos
 * Interfaces (Servicios)
@@ -24,7 +24,6 @@
 * Modelos de datos (Tabla de bases de datos)
 
 ## Configuraciones
-
 ## Dominio
 * modelo
 * puertos
