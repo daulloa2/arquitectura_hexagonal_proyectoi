@@ -1,18 +1,16 @@
 package com.hexagonal.crmarquitecturahexagonal.domain.models;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
@@ -21,12 +19,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "client")
-public class Client implements Serializable {
+@Table(name = "users")
+public class User implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idClient;
+    private Long idUser;
     
     @NotBlank
     @Column(unique = true, updatable = false)
@@ -49,11 +47,8 @@ public class Client implements Serializable {
     @NotBlank
     private String address;
 
-    @NotBlank
-    private String uuidUserManager;
-
     @JsonManagedReference
-    @OneToMany(mappedBy =  "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ClientCar> clientCar;
-
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    private Role role;
 }
