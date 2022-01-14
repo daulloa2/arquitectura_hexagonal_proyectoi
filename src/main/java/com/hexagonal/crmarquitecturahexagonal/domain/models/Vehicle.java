@@ -1,6 +1,7 @@
 package com.hexagonal.crmarquitecturahexagonal.domain.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -42,11 +44,11 @@ public class Vehicle implements Serializable {
     @NotBlank
     private String transmission;
 
-    @NotBlank
-    private String stock;
+    @NotNull
+    private Long stock;
 
-    @NotBlank
-    private String price;
+    @NotNull
+    private BigDecimal price;
 
     @JsonBackReference
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
