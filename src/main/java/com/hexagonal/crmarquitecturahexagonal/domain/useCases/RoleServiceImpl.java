@@ -24,6 +24,13 @@ public class RoleServiceImpl implements RoleService {
             roleRepository.initTable();
         }
     }
+
+    @Override
+    public Role findByUuid(String uuid) {
+        return roleRepository.findByUuid(uuid);
+    }
+
+    
     
 
 }

@@ -12,4 +12,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(nativeQuery = true, value = " " + InitData.userTable + " ")
     public void initTable();
+
+    public User findByUuid(String uuid);
+
+    public User findByEmailOrPhoneNumber(String email, String phoneNumber);
 }

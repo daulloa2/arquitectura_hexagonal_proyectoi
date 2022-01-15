@@ -51,4 +51,18 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_role")
     private Role role;
+
+    public User(){
+        
+    }
+    public User(String uuid, String firstName, String lastName, String email, String phoneNumber, String address, Role role){
+
+        this.uuid=uuid;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.email=email;
+        this.address=address;
+        this.phoneNumber=phoneNumber;
+        this.role=role;
+    }
 }

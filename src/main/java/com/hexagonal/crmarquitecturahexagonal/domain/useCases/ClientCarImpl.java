@@ -5,7 +5,6 @@ import java.util.List;
 import com.hexagonal.crmarquitecturahexagonal.adapters.secondary.ClientCarRepository;
 import com.hexagonal.crmarquitecturahexagonal.domain.models.ClientCar;
 import com.hexagonal.crmarquitecturahexagonal.ports.ClientCarService;
-import com.hexagonal.crmarquitecturahexagonal.ports.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

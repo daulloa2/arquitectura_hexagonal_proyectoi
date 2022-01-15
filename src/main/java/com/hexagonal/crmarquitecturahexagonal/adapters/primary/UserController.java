@@ -9,10 +9,11 @@ import javax.validation.Valid;
 import com.hexagonal.crmarquitecturahexagonal.domain.exceptions.BadRequestException;
 import com.hexagonal.crmarquitecturahexagonal.domain.exceptions.InternalServerException;
 import com.hexagonal.crmarquitecturahexagonal.domain.exceptions.NotFoundException;
-import com.hexagonal.crmarquitecturahexagonal.domain.models.Client;
-import com.hexagonal.crmarquitecturahexagonal.dtos.CreateClientDto;
-import com.hexagonal.crmarquitecturahexagonal.dtos.RetrieveClientDto;
-import com.hexagonal.crmarquitecturahexagonal.ports.ClientService;
+import com.hexagonal.crmarquitecturahexagonal.domain.models.Role;
+import com.hexagonal.crmarquitecturahexagonal.domain.models.User;
+import com.hexagonal.crmarquitecturahexagonal.dtos.CreateUserDto;
+import com.hexagonal.crmarquitecturahexagonal.ports.RoleService;
+import com.hexagonal.crmarquitecturahexagonal.ports.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -26,72 +27,91 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController()
-@RequestMapping("/api/v1/client")
-public class ClientController {
+@RequestMapping("/api/v1/user")
+public class UserController {
 
     @Autowired
-    private ClientService clientService;
+    private UserService userService;
 
     @Autowired
-    MessageSource messages;
+    private MessageSource messages;
+
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping(value = "/all")
     public ResponseEntity<?> getAllClients(Locale locale){
         
-        List<Client> clients = null;
+        List<User> users = null;
         try {
-            clients = clientService.findAllClients();
+            users = userService.findAllUsers();
         } catch (Exception e) {
             System.err.println("Error for loading clients: "+ e.getMessage());
         }
 
-        if(clients == null) {
-            NotFoundException notFoundException = new NotFoundException( messages.getMessage("error.NotFoundClients", null, locale));
+        if(users == null) {
+            NotFoundException notFoundException = new NotFoundException( messages.getMessage("error.NotFoundUsers", null, locale));
             return new ResponseEntity<>(notFoundException.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
-    }
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    } 
 
-    @GetMapping(value = "/{uuidClient}")
-    public ResponseEntity<?> getClient(@PathVariable String uuidClient, Locale locale){
+
+    @GetMapping(value = "/{uuidUser}")
+    public ResponseEntity<?> getClient(@PathVariable String uuidUser, Locale locale){
         
-        RetrieveClientDto client = null;
+        User user = null;
         try {
-            client = clientService.findbyUuid(uuidClient);
+            user = userService.findbyUuid(uuidUser);
         } catch (Exception e) {
             System.err.println("Error retrieving client: "+ e.getMessage());
         }
 
-        if(client == null) {
-            NotFoundException notFoundException = new NotFoundException( messages.getMessage("error.NotFoundClient", null, locale));
+        if(user == null) {
+            NotFoundException notFoundException = new NotFoundException( messages.getMessage("error.NotFoundUser", null, locale));
             return new ResponseEntity<>(notFoundException.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(client, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping(value = "")
-    public ResponseEntity<?>createClient(@Valid @RequestBody CreateClientDto createClient, BindingResult result, Locale locale){
 
-        // Capturar errores del client para campos obligatorios
+    @PostMapping(value = "")
+    public ResponseEntity<?>createUser(@Valid @RequestBody CreateUserDto createUser, BindingResult result, Locale locale){
+
+        // Capturar errores del usuario para campos obligatorios
         if(result.hasErrors()){
             String message = result.getFieldErrors().stream().map(err -> err.getField() + " " + err.getDefaultMessage()).collect(Collectors.joining(" \n"));
             BadRequestException badRequest = new BadRequestException(message);
             return new ResponseEntity<>(badRequest.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-        Client client;
-
-        // Verificar correo y telefóno
+        // Verificar rol
+        Role role= null;
         try {
-            client = clientService.findByEmail(createClient.getEmail(), createClient.getPhoneNumber());
+            role = roleService.findByUuid(createUser.getUuidRole());
         } catch (Exception e) {
-            System.err.println("Error retrieving client: "+ e.getMessage());
+            System.err.println("Error retrieving role: "+ e.getMessage());
             throw new InternalServerException("Internal Server Error: "+ e.getMessage());
         }
 
-        if (client != null){
+        if (role == null){
+            BadRequestException badRequest = new BadRequestException( messages.getMessage("error.NotFoundRole", null, locale));
+
+            return new ResponseEntity<>(badRequest.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+        User user = null;
+
+        // Verificar correo y telefóno
+        try {
+            user = userService.findByEmailOrPhoneNumber(createUser.getEmail(), createUser.getPhoneNumber());
+        } catch (Exception e) {
+            System.err.println("Error retrieving user: "+ e.getMessage());
+            throw new InternalServerException("Internal Server Error: "+ e.getMessage());
+        }
+
+        if (user != null){
             BadRequestException badRequest = new BadRequestException( messages.getMessage("error.EmailOrNumberPhoneAlreadyExists", null, locale));
 
             return new ResponseEntity<>(badRequest.getMessage(), HttpStatus.BAD_REQUEST);
@@ -99,13 +119,13 @@ public class ClientController {
 
         // Crear cliente
         try {
-           clientService.createClient(createClient);
+           userService.createUser(createUser, role);
         } catch (Exception e) {
-            System.err.println("Error saving client: "+ e.getMessage());
+            System.err.println("Error saving user: "+ e.getMessage());
             throw new InternalServerException("Internal Server Error: "+ e.getMessage());
         }
 
-        return new ResponseEntity<>(messages.getMessage("message.createUser", null, locale), HttpStatus.CREATED);
+        return new ResponseEntity<>(messages.getMessage("message.createClient", null, locale), HttpStatus.CREATED);
     }
 
 

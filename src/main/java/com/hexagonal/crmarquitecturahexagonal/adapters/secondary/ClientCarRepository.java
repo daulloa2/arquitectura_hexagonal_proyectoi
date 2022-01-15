@@ -12,4 +12,6 @@ public interface ClientCarRepository extends JpaRepository<ClientCar, Long>{
     @Modifying
     @Query(nativeQuery = true, value = " " + InitData.clientCarTable + " ")
     public void initTable();
+
+    
 }

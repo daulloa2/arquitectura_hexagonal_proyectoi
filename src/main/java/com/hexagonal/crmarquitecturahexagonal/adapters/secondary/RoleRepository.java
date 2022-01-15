@@ -12,4 +12,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Modifying
     @Query(nativeQuery = true, value = " " + InitData.roleTable + " ")
     public void initTable();
+
+    public Role findByUuid(String uuid);
 }

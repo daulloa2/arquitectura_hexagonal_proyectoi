@@ -24,6 +24,8 @@ import lombok.Setter;
 @Table(name = "client")
 public class Client implements Serializable {
     
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idClient;
@@ -55,5 +57,19 @@ public class Client implements Serializable {
     @JsonManagedReference
     @OneToMany(mappedBy =  "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ClientCar> clientCar;
+
+    public Client(){
+        
+    }
+    public Client(String uuid, String firstName, String lastName, String email, String phoneNumber, String address, String uuidUserManager){
+
+        this.uuid=uuid;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.email=email;
+        this.address=address;
+        this.phoneNumber=phoneNumber;
+        this.uuidUserManager=uuidUserManager;
+    }
 
 }

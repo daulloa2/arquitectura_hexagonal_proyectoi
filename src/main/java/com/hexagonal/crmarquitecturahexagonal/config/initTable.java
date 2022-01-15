@@ -1,6 +1,5 @@
 package com.hexagonal.crmarquitecturahexagonal.config;
 
-import com.hexagonal.crmarquitecturahexagonal.domain.models.User;
 import com.hexagonal.crmarquitecturahexagonal.ports.CarService;
 import com.hexagonal.crmarquitecturahexagonal.ports.ClientCarService;
 import com.hexagonal.crmarquitecturahexagonal.ports.ClientService;

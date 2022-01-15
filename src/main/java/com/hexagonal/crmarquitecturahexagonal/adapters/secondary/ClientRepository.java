@@ -15,6 +15,11 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query(nativeQuery = true, value = " " + InitData.clientTable + " ")
     public void initTable();
 
+    public Client findByUuid(String uuid);
+
     @Query(nativeQuery = true, value = "SELECT * FROM client as c")
     public List<Client> findAllClients();
+
+    @Query(nativeQuery = true, value = "SELECT * FROM client WHERE client.email= :email or client.phone_number= :phoneNumber")
+    public Client findByEmailOrPhoneNumber(String email, String phoneNumber); 
 }

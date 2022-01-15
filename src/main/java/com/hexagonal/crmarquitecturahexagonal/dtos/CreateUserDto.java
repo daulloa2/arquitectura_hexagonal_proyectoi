@@ -1,12 +1,15 @@
 package com.hexagonal.crmarquitecturahexagonal.dtos;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class RetrieveAllClientsDto {
-    
-    @NotBlank
-    private String uuid; 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class CreateUserDto {
+    
     @NotBlank
     private String firstName;
 
@@ -14,14 +17,17 @@ public class RetrieveAllClientsDto {
     private String lastName;
 
     @NotBlank
-    private String email;
+    private String phoneNumber;
+
+    private String uuid;
 
     @NotBlank
-    private String phoneNumber;
+    @Email
+    private String email;
 
     @NotBlank
     private String address;
 
     @NotBlank
-    private String uuidUser;
+    private String uuidRole; 
 }
