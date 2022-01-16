@@ -23,5 +23,11 @@ public class CarServiceImpl implements CarService{
             carRepository.initTable();
         }        
     }
+
+    @Override
+    public Vehicle findById(Long idCar) {
+        
+        return carRepository.findByIdCar(idCar);
+    }
     
 }

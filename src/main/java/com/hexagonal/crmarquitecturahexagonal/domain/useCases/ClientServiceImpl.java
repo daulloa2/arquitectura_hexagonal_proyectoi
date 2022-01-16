@@ -62,5 +62,11 @@ public class ClientServiceImpl implements ClientService {
         
         return clientRepository.findAll();
     }
+
+    @Override
+    public Client findByUuidClient(String uuid) {
+    
+        return clientRepository.findByUuid(uuid);
+    }
     
 }

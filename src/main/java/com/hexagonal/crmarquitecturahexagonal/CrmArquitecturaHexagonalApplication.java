@@ -14,20 +14,24 @@ public class CrmArquitecturaHexagonalApplication {
 		SpringApplication.run(CrmArquitecturaHexagonalApplication.class, args);
 	}
 
+	// @Bean
+	// public PasswordEncoder passwordEncoder() {
+	// 	return new BCryptPasswordEncoder();
+	// }
+
 	@Bean
 	public MessageSource messageSource() {
-     ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-     messageSource.setBasename("classpath:messages");
-     return messageSource;
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		return messageSource;
 
-	
-  }
+	}
 
-@Bean
+	@Bean
 	public LocalValidatorFactoryBean getValidator() {
-		 LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-		 bean.setValidationMessageSource(messageSource());
-		 return bean;
-	 }
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+		return bean;
+	}
 
 }

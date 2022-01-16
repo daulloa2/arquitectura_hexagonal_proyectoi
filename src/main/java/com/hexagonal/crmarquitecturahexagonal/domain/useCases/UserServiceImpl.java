@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    // @Autowired
+    // private PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public void initTable() {
@@ -52,10 +55,15 @@ public class UserServiceImpl implements UserService{
         
         userDto.setUuid(GenerateUUID.generateUUID(new Date().toString()+userDto.getEmail()+userDto.getPhoneNumber()));
 
-        User user = new User(userDto.getUuid(), userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), role);
+        User user = new User(userDto.getUuid(), userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getUsername(), userDto.getPassword(), role);
 
         userRepository.save(user);
         
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
     
 }

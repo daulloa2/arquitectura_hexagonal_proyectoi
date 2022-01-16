@@ -16,8 +16,8 @@ public class InitData {
 
 
      // CREATE INITIAL DATA FOR USERS
-    public static final String userTable = "INSERT INTO users (uuid, first_name, last_name, email, phone_number, address, id_role) VALUES ('c5f8da14-f272-4ea6-8fb6-ed5df5ba7c31', 'Bratt', 'Carrot', 'carrot13@enterprise.crm.com', '0981234560', 'Coliseo de Loja', (SELECT id_role FROM role WHERE role_name='ROLE_VENTAS'));"
-    + "INSERT INTO users (uuid, first_name, last_name, email, phone_number, address, id_role) VALUES ('e1ac6e16-6289-4373-90e4-cf415b41e1ec', 'Berenise', 'Charlies', 'charlies34@enterprise.crm.com', '0981234534', 'Calle Quito y 18 de Noviembre', (SELECT id_role FROM role WHERE role_name='ROLE_VENTAS'));" ;
+    public static final String userTable = "INSERT INTO users (uuid, first_name, last_name, email, phone_number, address, username, password, id_role) VALUES ('c5f8da14-f272-4ea6-8fb6-ed5df5ba7c31', 'Bratt', 'Carrot', 'carrot13@enterprise.crm.com', '0981234560', 'Coliseo de Loja', 'carrot13', '$2a$10$9g484VjhSRSPE7i3A6HQ4uTbxHPbAfgATKRY.77kCk17jCr84DcqW', (SELECT id_role FROM role WHERE role_name='ROLE_VENTAS'));"
+    + "INSERT INTO users (uuid, first_name, last_name, email, phone_number, address, username, password, id_role) VALUES ('e1ac6e16-6289-4373-90e4-cf415b41e1ec', 'Berenise', 'Charlies', 'charlies34@enterprise.crm.com', '0981234534', 'Calle Quito y 18 de Noviembre', 'charlies34', '$2a$10$Q54blZccdTxc4HgIr3JCO.9iAOGLLiqK8CiE..tedA5m8WasdIa5i', (SELECT id_role FROM role WHERE role_name='ROLE_VENTAS'));" ;
 
 
     // CREATE INITIAL DATA FOR VEHICLES

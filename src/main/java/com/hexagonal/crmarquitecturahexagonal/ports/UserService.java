@@ -17,4 +17,6 @@ public interface UserService {
     public User findByEmailOrPhoneNumber(String email, String phoneNumber);
 
     public void createUser(CreateUserDto userDto, Role role);
+
+    public User findByUsername(String username);
 }

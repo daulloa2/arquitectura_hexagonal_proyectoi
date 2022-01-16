@@ -47,6 +47,12 @@ public class User implements Serializable {
     @NotBlank
     private String address;
 
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "id_role")
@@ -55,7 +61,7 @@ public class User implements Serializable {
     public User(){
         
     }
-    public User(String uuid, String firstName, String lastName, String email, String phoneNumber, String address, Role role){
+    public User(String uuid, String firstName, String lastName, String email, String phoneNumber, String address, String username, String password, Role role){
 
         this.uuid=uuid;
         this.firstName=firstName;
@@ -64,5 +70,7 @@ public class User implements Serializable {
         this.address=address;
         this.phoneNumber=phoneNumber;
         this.role=role;
+        this.username=username;
+        this.password=password;
     }
 }

@@ -17,5 +17,7 @@ public interface ClientService {
 
     public RetrieveClientDto findbyUuid (String uuid);
 
+    public Client findByUuidClient (String uuid) ;
+
     public List<Client> findAll();
 }

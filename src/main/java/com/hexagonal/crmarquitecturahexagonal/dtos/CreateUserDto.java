@@ -29,5 +29,11 @@ public class CreateUserDto {
     private String address;
 
     @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
+    @NotBlank
     private String uuidRole; 
 }

@@ -86,6 +86,22 @@ public class UserController {
             return new ResponseEntity<>(badRequest.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
+        // Verificar username
+        User verifiedUsername = null;
+
+        try {
+            verifiedUsername = userService.findByUsername(createUser.getUsername());
+        } catch (Exception e) {
+            System.err.println("Error retrieve user by username : "+ e.getMessage());
+            throw new InternalServerException("Internal Server Error: "+ e.getMessage());
+        }
+
+        if (verifiedUsername != null) {
+            BadRequestException badRequest = new BadRequestException( messages.getMessage("error.usernameAlreadyExists", null, locale));
+
+            return new ResponseEntity<>(badRequest.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
         // Verificar rol
         Role role= null;
         try {
@@ -125,7 +141,7 @@ public class UserController {
             throw new InternalServerException("Internal Server Error: "+ e.getMessage());
         }
 
-        return new ResponseEntity<>(messages.getMessage("message.createClient", null, locale), HttpStatus.CREATED);
+        return new ResponseEntity<>(messages.getMessage("message.createUser", null, locale), HttpStatus.CREATED);
     }
 
 

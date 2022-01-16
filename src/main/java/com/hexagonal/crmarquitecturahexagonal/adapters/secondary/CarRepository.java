@@ -12,4 +12,7 @@ public interface CarRepository extends JpaRepository<Vehicle, Long> {
     @Modifying
     @Query(nativeQuery = true, value = " " + InitData.carTable + " ")
     public void initTable();
+
+    @Query(nativeQuery = true, value = "SELECT * FROM cars WHERE cars.id_car = :idCar")
+    public Vehicle findByIdCar(Long idCar);
 }
